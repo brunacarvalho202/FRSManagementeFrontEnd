@@ -1,0 +1,37 @@
+.chart-container {
+    width: 80%;
+    height: 400px;
+    margin: 0 auto;
+}
+
+.chart-title {
+    font-size: 33px;
+    font-weight: 700;
+    text-transform: capitalize;
+    line-height: 86.4px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.back-button {
+    background-color: #A2001D;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 14.5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 700;
+    text-transform: capitalize;
+    text-transform: uppercase;
+}
+
+.back-button:hover {
+    background-color: #000000;
+}

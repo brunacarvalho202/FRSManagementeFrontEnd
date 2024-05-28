@@ -1,0 +1,262 @@
+.cliente-controle {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
+
+.cliente-wrapper {
+    width: 90%;
+    max-width: 1000px;
+    height: auto;
+    
+    display: flex;
+    flex-direction: column;
+    
+    background: white;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2); 
+    margin: 20px auto;
+    padding: 1rem;
+    border-radius: 30px;
+}
+
+.banner-button {
+    display: inline-block;
+    width: 145px;
+    padding: 10px 20px;
+    background: #A2001D;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.04);
+    border-radius: 5px; 
+    color: #F5F5F5;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    text-align: center;
+    line-height: 20px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+    text-decoration: none; 
+    transition: background-color 0.3s ease;
+    height: 40px; 
+}
+
+.banner-button:hover {
+    background-color: #000000; 
+}
+
+.cliente-header {
+    min-height: 70px;
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    margin: auto 1.7rem;
+}
+
+.cliente-header span {
+    font-weight: 900;
+    font-size: 2rem;
+    color: var(--darker-text);
+    word-break: break-word;
+}
+
+.header-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.search-container {
+    position: relative;
+    width: 240px;
+    margin-right: 16px; 
+}
+
+.search-input {
+    width: 100%;
+    height: 40px;
+    padding: 8px 12px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.20);
+    padding-right: 40px; 
+    display: inline-block; 
+    vertical-align: middle; 
+    margin-top: 10px;
+}
+
+.search-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-top: 8px;
+}
+
+.search-icon img {
+    width: 20px;
+    height: 20px;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.modal-buttons .banner-button {
+    width: 45%;
+    margin: 0 5px;
+    margin-top: 10px;
+}
+
+.cliente-info {
+    width: 100%;
+    height: inherit;
+    overflow: auto;
+
+    margin: 1rem;
+
+    padding: 1rem;
+}
+
+.cliente-info::-webkit-scrollbar {
+    width: 12px;
+    background-color: transparent;
+}
+
+.cliente-info::-webkit-scrollbar-thumb {
+    background-color: var(--secondary-color);
+    border-radius: 30px;
+}
+
+table {
+    width: calc(100% - 2rem); 
+    word-break: break-word;
+    border-spacing: 10px;
+    border-collapse: collapse;
+    margin-left: 1rem; 
+}
+
+thead {
+    border-radius: 5px;
+    background-color: var(--secondary-color);
+    margin-left: 1rem; 
+}
+
+thead tr th {
+    color: var(--title);
+    text-align: start;
+    padding: 5px;
+    margin-bottom: 50px;
+}
+
+thead tr th.acao {
+    width: 100px !important;
+    text-align: center;
+}
+
+tbody tr td {
+    max-width: 50px;
+    vertical-align: text-top;
+    padding: 6px;
+}
+
+tbody tr {
+    margin-bottom: 50px;
+}
+
+tbody tr td.acao {
+    text-align: center;
+}
+
+tbody button {
+    color: var(--primary-color);
+    background: none;
+    border: none;
+    outline: none;
+}
+
+.modal-wrapper {
+    width: 100vw;
+    height: 100vh;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal {
+    width: 50%;
+    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    padding: 30px;
+    border-radius: 20px;
+}
+
+.modal label {
+    width: 100%;
+    font-size: 0.9rem;
+    font-weight: 300;
+}
+
+.modal input {
+    width: 100%;
+    outline: none;
+    margin-bottom: 10px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    padding: 6px 10px;
+}
+
+.modal button {
+    width: 100%;
+    color: white;
+    outline: none;
+    padding: 5px 10px;
+    background-color: var(--primary-color);
+    border-radius: 5px;
+    border: none;
+    margin: 10px auto;
+}
+
+.active {
+    display: flex;
+}
+
+.active .modal {
+    animation: modal .4s;
+}
+
+@keyframes modal {
+    from {
+        opacity: 0;
+        transform: translate3d(0, -60px, 0);
+    }
+    
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
