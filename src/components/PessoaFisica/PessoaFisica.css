@@ -22,7 +22,6 @@
     flex: 1;
 }
 
-/* Estilos específicos para a tabela de cadastro de funcionários */
 .employee-wrapper {
     width: 90%;
     max-width: 1000px;
@@ -61,7 +60,6 @@
     background-color: #000000;
 }
 
-/*-------------------------HEADER-------------------------*/
 .employee-header {
     min-height: 60px;
     display: flex;

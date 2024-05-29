@@ -22,7 +22,6 @@
     flex: 1;
 }
 
-/* Estilos específicos para a tabela de cadastro de funcionários */
 .employee-wrapper {
     width: 90%;
     max-width: 1000px;
@@ -61,7 +60,6 @@
     background-color: #000000;
 }
 
-/*-------------------------HEADER-------------------------*/
 .employee-header {
     min-height: 60px;
     display: flex;
@@ -137,8 +135,8 @@
 }
 
 .employee-info::-webkit-scrollbar {
-    height: 6px; /* Altura da barra de rolagem horizontal */
-    width: 6px; /* Largura da barra de rolagem vertical */
+    height: 6px; 
+    width: 6px;
     background-color: transparent;
 }
 
@@ -375,7 +373,6 @@ tbody button {
     background-color: #000000;
 }
 
-/* Estilos dos botões */
 .employee-info .acao button,
 .employee-info .acao a {
     color: var(--primary-color);
@@ -393,7 +390,6 @@ tbody button {
     text-decoration: underline;
 }
 
-/* Estilos específicos para +Informações */
 .employee-info .acao a {
     color: var(--primary-color);
     text-decoration: none;

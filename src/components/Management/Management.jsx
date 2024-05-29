@@ -84,7 +84,7 @@ const Management = () => {
         try {
             const formattedForm = {
                 ...form,
-                telefone: form.telefone.map(t => t.numero) // Ajuste para telefone
+                telefone: form.telefone.map(t => t.numero) 
             };
             if (isEditing) {
                 await updateFuncionario(formattedForm);
@@ -132,7 +132,7 @@ const Management = () => {
         setForm({
             ...funcionario,
             carteira_trabalho: funcionario.carteira_trabalho || '',
-            telefone: funcionario.telefones ? funcionario.telefones.map(t => ({ numero: t })) : [{ numero: '' }] // Certifique-se de mapear corretamente os telefones
+            telefone: funcionario.telefones ? funcionario.telefones.map(t => ({ numero: t })) : [{ numero: '' }] 
         });
         setIsEditing(true);
         openModal();

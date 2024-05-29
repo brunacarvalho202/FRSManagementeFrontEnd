@@ -135,8 +135,8 @@
 }
 
 .service-info::-webkit-scrollbar {
-    height: 6px; /* Altura da barra de rolagem horizontal */
-    width: 6px; /* Largura da barra de rolagem vertical */
+    height: 6px; 
+    width: 6px; 
     background-color: transparent;
 }
 
@@ -203,7 +203,6 @@ tbody tr td.acao {
     text-decoration: underline;
 }
 
-/* Estilos específicos para +Informações */
 .service-info .acao a {
     color: var(--primary-color);
     text-decoration: none;
