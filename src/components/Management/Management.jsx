@@ -53,7 +53,7 @@ const Management = () => {
 
     const handleInputChange = (e) => {
         const { id, value } = e.target;
-
+    
         if (id.startsWith('endereco-')) {
             const field = id.split('-')[1];
             setForm((prevForm) => ({
@@ -86,11 +86,14 @@ const Management = () => {
                 ...form,
                 telefone: form.telefone.map(t => t.numero) 
             };
+            console.log("Dados enviados para o backend:", formattedForm);
+            let response;
             if (isEditing) {
-                await updateFuncionario(formattedForm);
+                response = await updateFuncionario(formattedForm);
             } else {
-                await saveFuncionario(formattedForm);
+                response = await saveFuncionario(formattedForm);
             }
+            console.log("Resposta do servidor:", response);
             fetchFuncionarios();
             closeModal();
             setIsEditing(false);
@@ -98,7 +101,7 @@ const Management = () => {
             console.error('Erro ao salvar funcionário:', error);
         }
     };
-
+    
     const handleDelete = async (cpf) => {
         try {
             await deleteFuncionario(cpf);
@@ -132,7 +135,7 @@ const Management = () => {
         setForm({
             ...funcionario,
             carteira_trabalho: funcionario.carteira_trabalho || '',
-            telefone: funcionario.telefones ? funcionario.telefones.map(t => ({ numero: t })) : [{ numero: '' }] 
+            telefone: funcionario.telefone ? funcionario.telefone.map(t => ({ numero: t })) : [{ numero: '' }] 
         });
         setIsEditing(true);
         openModal();

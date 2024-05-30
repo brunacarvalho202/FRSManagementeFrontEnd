@@ -4,6 +4,7 @@ import { getDependentes, saveDependente, updateDependente, deleteDependente } fr
 import axios from 'axios';
 import './UserProfile.css';
 import Footer from '../Footer/Footer';
+import { getDependentesByFuncionario } from '../../Services/DependenteServices';
 
 const UserProfile = () => {
     const { cpf } = useParams();
@@ -21,26 +22,27 @@ const UserProfile = () => {
             try {
                 const response = await axios.get(`http://localhost:8080/funcionarios/${cpf}`);
                 setUserData(response.data);
+                fetchDependentes();
             } catch (error) {
                 console.error('Erro ao buscar dados do usuário:', error);
             }
         };
 
         fetchUserData();
-        fetchDependentes();
     }, [cpf]);
 
     const fetchDependentes = async () => {
         try {
-            const response = await getDependentes();
+            const response = await getDependentesByFuncionario(cpf);
             setUserData((prevState) => ({
                 ...prevState,
-                dependentes: response.data.filter(dep => dep.cpfFuncionario === cpf && dep.nome && dep.cpfDependente)
+                dependentes: response.data
             }));
         } catch (error) {
             console.error('Erro ao buscar dependentes:', error);
         }
     };
+    
 
     const handleInputChange = (e) => {
         const { id, value } = e.target;
@@ -71,11 +73,11 @@ const UserProfile = () => {
     const handleDeleteDependente = async (cpfDependente) => {
         try {
             await deleteDependente(cpfDependente);
-            fetchDependentes();
+            fetchDependentes();  // Atualiza a lista de dependentes após a exclusão
         } catch (error) {
             console.error('Erro ao excluir dependente:', error);
         }
-    };
+    };    
 
     const openModal = () => {
         document.getElementById('modal-wrapper').classList.add('active');

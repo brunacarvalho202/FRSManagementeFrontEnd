@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import './PessoaFisica.css';
-import { getClientesFisicos, saveClienteFisico, updateClienteFisico, deleteClienteFisico } from '../../Services/ClientFisicoServices';
+import { getClientesFisicos, saveClienteFisico, deleteClienteFisico, updateClienteFisico } from '../../Services/ClientFisicoServices';
 
 const PessoaFisica = () => {
     const [clientes, setClientes] = useState([]);
     const [filteredClientes, setFilteredClientes] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
-    const [clienteForm, setClienteForm] = useState({ cnh: '', nome: '', procuracao: '' });
+    const [clienteForm, setClienteForm] = useState({ cnh: '', nome: '', procuracao: null });
     const [isEditMode, setIsEditMode] = useState(false);
 
     useEffect(() => {
@@ -43,18 +43,31 @@ const PessoaFisica = () => {
         setClienteForm({ ...clienteForm, [id]: value });
     };
 
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        setClienteForm({ ...clienteForm, procuracao: file });
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            if (isEditMode) {
-                await updateClienteFisico(clienteForm);
-            } else {
-                await saveClienteFisico(clienteForm);
+            const formData = new FormData();
+            formData.append('CNH', clienteForm.cnh);
+            formData.append('nome', clienteForm.nome);
+            if (clienteForm.procuracao) {
+                formData.append('procuracao', clienteForm.procuracao);
             }
+
+            if (isEditMode) {
+                await updateClienteFisico(formData);
+            } else {
+                await saveClienteFisico(formData);
+            }
+
             loadClientes();
             closeModal();
         } catch (error) {
-            console.error('Erro ao salvar cliente:', error);
+            console.error('Erro ao salvar cliente:', error.response ? error.response.data : error);
         }
     };
 
@@ -79,8 +92,14 @@ const PessoaFisica = () => {
 
     const closeModal = () => {
         document.getElementById('modal-wrapper').classList.remove('active');
-        setClienteForm({ cnh: '', nome: '', procuracao: '' });
+        setClienteForm({ cnh: '', nome: '', procuracao: null });
         setIsEditMode(false);
+    };
+
+    const handleViewProcuracao = (procuracao, type) => {
+        const fileUrl = `data:${type};base64,${procuracao}`;
+        const newWindow = window.open();
+        newWindow.document.write(`<img src="${fileUrl}" alt="Procuracao" />`);
     };
 
     return (
@@ -120,7 +139,13 @@ const PessoaFisica = () => {
                                     <tr key={cliente.cnh}>
                                         <td>{cliente.nome}</td>
                                         <td>{cliente.cnh}</td>
-                                        <td>{cliente.procuracao}</td>
+                                        <td>
+                                            {cliente.procuracao ? (
+                                                <button onClick={() => handleViewProcuracao(cliente.procuracao, 'image/png')}>Ver</button>
+                                            ) : (
+                                                'N/A'
+                                            )}
+                                        </td>
                                         <td className="acao">
                                             <button onClick={() => handleEdit(cliente)}>Editar</button>
                                         </td>
@@ -142,7 +167,7 @@ const PessoaFisica = () => {
                                 <input id="cnh" name="cnh" type="text" required value={clienteForm.cnh} onChange={handleInputChange} />
 
                                 <label htmlFor="procuracao">Procuracao</label>
-                                <input id="procuracao" name="procuracao" type="text" required value={clienteForm.procuracao} onChange={handleInputChange} />
+                                <input id="procuracao" name="procuracao" type="file" accept="image/*" onChange={handleFileChange} />
 
                                 <div className="modal-buttons">
                                     <button type="button" id="btn-cancelar" className="banner-button2" onClick={closeModal}>Cancelar</button>

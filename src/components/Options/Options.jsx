@@ -16,6 +16,7 @@ const Options = () => {
                     <Link to="/clientes" className="option-box">CLIENTES</Link>
                     <Link to="/funcionarios" className="option-box">FUNCIONÁRIOS</Link>
                     <Link to="/servicos" className="option-box">SERVIÇOS</Link>
+                    <Link to="/veiculos" className="option-box">VEICULOS</Link>
                 </div>
             </div>
             <Footer />

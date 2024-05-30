@@ -9,6 +9,7 @@ import Clientes from './components/Clients/Clients';
 import PessoaFisica from './components/PessoaFisica/PessoaFisica';
 import PessoaJuridica from './components/PessoaJuridica/PessoaJuridica';
 import GeralServices from './components/GeralServices/GeralServices';
+import VeiculoManagement from './components/Veiculo/VeiculoManagement';
 import ChartPage from './components/ChartPage/ChartPage';
 import UserProfile from './components/UserProfile/UserProfile';
 import Dashboard from './components/Dashboard/Dashboard';
@@ -53,6 +54,13 @@ const App = () => {
                         <>
                             <Header />
                             <GeralServices />
+                            <Footer />
+                        </>
+                    } />
+                    <Route path="/veiculos" element={
+                        <>
+                            <Header />
+                            <VeiculoManagement />
                             <Footer />
                         </>
                     } />
