@@ -57,13 +57,6 @@ const App = () => {
                             <Footer />
                         </>
                     } />
-                    <Route path="/veiculos" element={
-                        <>
-                            <Header />
-                            <VeiculoManagement />
-                            <Footer />
-                        </>
-                    } />
                     <Route path="/grafico" element={
                         <>
                             <Header />
