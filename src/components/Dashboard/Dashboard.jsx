@@ -1,33 +1,68 @@
-import React, { useState, useEffect } from 'react';
-import { getFuncionarios, getServicos } from '../../Services/DashboardServices';
+import React, { useEffect, useState } from 'react';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Pie } from 'react-chartjs-2';
+import axios from 'axios';
 import './Dashboard.css';
 
+// Registrar componentes do Chart.js
+ChartJS.register(ArcElement, Tooltip, Legend);
+
 const Dashboard = () => {
+    const [dataLoaded, setDataLoaded] = useState(false);
     const [funcionarios, setFuncionarios] = useState([]);
     const [servicos, setServicos] = useState([]);
+    const [clienteFisicoCount, setClienteFisicoCount] = useState(0);
+    const [clienteJuridicoCount, setClienteJuridicoCount] = useState(0);
 
     useEffect(() => {
-        loadFuncionarios();
-        loadServicos();
+        const fetchData = async () => {
+            try {
+                const [funcionariosResponse, servicosResponse, fisicoCountResponse, juridicoCountResponse] = await Promise.all([
+                    axios.get('http://localhost:8080/funcionarios/todos', {
+                        params: {
+                            include: 'telefone'
+                        }
+                    }),
+                    axios.get('http://localhost:8080/servicos/todos_servicos'),
+                    axios.get('http://localhost:8080/clientes/fisico/count'),
+                    axios.get('http://localhost:8080/clientes/juridico/count')
+                ]);
+
+                setFuncionarios(funcionariosResponse.data);
+                setServicos(servicosResponse.data);
+                setClienteFisicoCount(fisicoCountResponse.data);
+                setClienteJuridicoCount(juridicoCountResponse.data);
+                setDataLoaded(true);
+            } catch (error) {
+                console.error('Erro ao buscar dados:', error);
+            }
+        };
+
+        fetchData();
     }, []);
 
-    const loadFuncionarios = async () => {
-        try {
-            const response = await getFuncionarios();
-            setFuncionarios(response.data);
-        } catch (error) {
-            console.error('Erro ao buscar funcionários:', error);
-        }
+    const data = {
+        labels: ['Clientes Físicos', 'Clientes Jurídicos'],
+        datasets: [
+            {
+                label: 'Clientes',
+                data: [clienteFisicoCount, clienteJuridicoCount],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(201, 203, 207, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(201, 203, 207, 1)'
+                ],
+                borderWidth: 1,
+            },
+        ],
     };
 
-    const loadServicos = async () => {
-        try {
-            const response = await getServicos();
-            setServicos(response.data);
-        } catch (error) {
-            console.error('Erro ao buscar serviços:', error);
-        }
-    };
+    if (!dataLoaded) {
+        return <div>Carregando dados...</div>;
+    }
 
     return (
         <div className="dashboard">
@@ -75,6 +110,12 @@ const Dashboard = () => {
                         ))}
                     </tbody>
                 </table>
+            </div>
+            <div className="dashboard-section">
+                <h2>Gráfico de Clientes</h2>
+                <div className="chart-container">
+                    <Pie data={data} />
+                </div>
             </div>
         </div>
     );

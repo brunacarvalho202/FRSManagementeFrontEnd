@@ -32,3 +32,9 @@ th, td {
 th {
     background-color: #A2001D;
 }
+
+.chart-container {
+    width: 50%;
+    height: 50%;
+    margin: auto;
+}
