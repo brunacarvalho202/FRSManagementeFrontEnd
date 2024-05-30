@@ -40,7 +40,6 @@ const Dashboard = () => {
                             <th>Nome</th>
                             <th>CPF</th>
                             <th>Carteira de Trabalho</th>
-                            <th>Telefone</th>
                             <th>Supervisor</th>
                         </tr>
                     </thead>
@@ -50,7 +49,6 @@ const Dashboard = () => {
                                 <td>{funcionario.nome}</td>
                                 <td>{funcionario.cpf}</td>
                                 <td>{funcionario.carteira_trabalho}</td>
-                                <td>{funcionario.telefones ? funcionario.telefones.map(t => t.telefone).join(', ') : 'Campo Vazio'}</td>
                                 <td>{funcionario.supervisor_cpf}</td>
                             </tr>
                         ))}
